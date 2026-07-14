@@ -1,0 +1,15 @@
+REM ============================================================
+REM ALTERNATIVE .dat file with absolute path
+REM 
+REM Edit the path below and save as "machintell_test.dat"
+REM Use this if relative paths don't work in your environment.
+REM ============================================================
+
+NAME                 machintell_test
+STARTUP              dll
+ALLOW_STOP           TRUE
+DELAY_START          FALSE
+EXEC_FILE            C:\MachIntell\creo-toolkit-test\bin\machintell_test.dll
+TEXT_DIR             C:\MachIntell\creo-toolkit-test\text\
+REVISION             11.0
+END

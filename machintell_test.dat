@@ -1,0 +1,8 @@
+NAME                 machintell_test
+STARTUP              dll
+ALLOW_STOP           TRUE
+DELAY_START          FALSE
+EXEC_FILE            .\bin\machintell_test.dll
+TEXT_DIR             .\text\
+REVISION             11.0
+END

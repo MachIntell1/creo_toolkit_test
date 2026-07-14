@@ -1,0 +1,15 @@
+# Ignore build artifacts
+bin/
+*.obj
+*.dll
+*.exp
+*.lib
+*.pdb
+*.ilk
+
+
+
+# IDE files
+.vs/
+*.suo
+*.user

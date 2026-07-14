@@ -1,0 +1,8 @@
+TEST_WITH_MODEL
+Connection SUCCESSFUL! Active model: %0s [MachIntell]
+TEST_NO_MODEL
+Connection SUCCESSFUL! No model open. [MachIntell]
+MachIntell_Test
+MachIntell Test
+MachIntell_Test_Help
+Verify Creo Toolkit integration - MachIntell 
