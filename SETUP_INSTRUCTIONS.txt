@@ -1,0 +1,62 @@
+============================================================
+ MachIntell Creo Toolkit Test - Quick Setup Guide
+ MachIntell Technologies Pvt. Ltd.
+============================================================
+
+STEP 1: Extract this folder to C:\MachIntell\
+         Final path should be: C:\MachIntell\creo-toolkit-test\
+
+STEP 2: Start Creo 11
+
+STEP 3: Go to: Utilities tab > Auxiliary Applications
+
+STEP 4: Click "Register"
+         Browse to: C:\MachIntell\creo-toolkit-test\machintell_test.dat
+         Click Open
+
+STEP 5: Select "machintell_test" in the list
+         Click "Start"
+         Status should change to "Running"
+
+STEP 6: Go to Utilities menu
+         Click "MachIntell Test"
+         (If not visible, search "MachIntell" in ribbon search box)
+
+STEP 7: You should see a success message in Creo's message area at bottom.
+         Also check for log file: machintell_test_log.txt
+         (Located in Creo's working directory)
+
+============================================================
+ IMPORTANT NOTES:
+============================================================
+
+- If you extract to a DIFFERENT location (not C:\MachIntell\),
+  you MUST edit machintell_test.dat and update the paths:
+  
+  EXEC_FILE  <your_path>\bin\machintell_test.dll
+  TEXT_DIR   <your_path>\text\
+
+- After testing, please share the machintell_test_log.txt file
+  with us for confirmation.
+
+============================================================
+ TROUBLESHOOTING:
+============================================================
+
+Error: "Cannot spawn application"
+  -> Path in .dat file is wrong. Edit it with correct full paths.
+
+Error: Status shows "Failed" 
+  -> Try running Creo as Administrator once.
+  -> Verify machintell_test.dll exists at the specified path.
+
+Button not visible:
+  -> Search "MachIntell" in ribbon search (magnifying glass, top-right)
+
+Log file not found:
+  -> Search C: drive for "machintell_test_log.txt"
+  -> It's created in whatever directory Creo uses as working dir
+
+============================================================
+ Contact: MachIntell Technologies - Ayush
+============================================================

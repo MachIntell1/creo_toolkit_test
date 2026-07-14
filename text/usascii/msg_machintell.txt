@@ -1,8 +1,16 @@
-TEST_WITH_MODEL
-Connection SUCCESSFUL! Active model: %0s [MachIntell]
+TEST_WITH_MODEL %0s
+Creo Toolkit Connection SUCCESSFUL! Active model: %0s  [MachIntell Technologies]
+
+
 TEST_NO_MODEL
-Connection SUCCESSFUL! No model open. [MachIntell]
+Creo Toolkit Connection SUCCESSFUL! No model open.  [MachIntell Technologies]
+
+
 MachIntell_Test
 MachIntell Test
+
+
 MachIntell_Test_Help
-Verify Creo Toolkit integration - MachIntell 
+Verify Creo Toolkit integration - MachIntell Technologies
+
+

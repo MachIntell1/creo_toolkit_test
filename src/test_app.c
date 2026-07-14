@@ -1,13 +1,8 @@
 /*
  * Creo Toolkit Test Application
- * MachIntell solutions Pvt. Ltd.
+ * MachIntell Technologies Pvt. Ltd.
  *
  * Purpose: Verify Creo Toolkit integration is working correctly.
- * This application adds a custom menu button to Creo and on click:
- *   - Shows a success message in Creo's message area
- *   - Reads the active model name (if any model is open)
- *   - Writes a log file (machintell_test_log.txt) for verification
- *
  * Tested for: Creo 11 (Pro/TOOLKIT)
  */
 
@@ -16,14 +11,15 @@
 #include <ProMessage.h>
 #include <ProMdl.h>
 #include <ProUtil.h>
-#include <ProArray.h>
-#include <ProUIMessage.h>
+#include <ProWindows.h>
+#include <ProUICmd.h>
+#include <ProTKRunTime.h>
 
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
 
-static char log_path[260] = "machintell_test_log.txt";
+static wchar_t MSGFIL[] = {'m','s','g','_','m','a','c','h','i','n','t','e','l','l','.','t','x','t','\0'};
 
 /*--------------------------------------------------------------------*/
 static void write_log(const char *message)
@@ -32,7 +28,7 @@ static void write_log(const char *message)
     time_t now;
     char time_buf[64];
 
-    fp = fopen(log_path, "a");
+    fp = fopen("machintell_test_log.txt", "a");
     if (fp == NULL)
         return;
 
@@ -45,7 +41,7 @@ static void write_log(const char *message)
 /*--------------------------------------------------------------------*/
 static uiCmdAccessState AccessDefault(uiCmdAccessMode access_mode)
 {
-    return ACCESS_AVAILABLE;
+    return (ACCESS_AVAILABLE);
 }
 
 /*--------------------------------------------------------------------*/
@@ -55,19 +51,24 @@ static int action_test_connection(uiCmdCmdId command,
 {
     ProError status;
     ProMdl current_model = NULL;
-    ProMdlType model_type;
     ProName w_model_name;
-    ProMdlFileName w_file_name;
+    ProMdlType model_type;
     char name_str[PRO_NAME_SIZE] = {0};
     char log_msg[512];
-    wchar_t w_msg[256];
+    int window_id;
 
     write_log("=== MachIntell Creo Toolkit Test ===");
     write_log("Button clicked - Toolkit integration VERIFIED");
 
-    ProTKPrintf("----------------------------------------------\n");
+    ProTKPrintf("\n----------------------------------------------\n");
     ProTKPrintf("  MachIntell Creo Toolkit Test - SUCCESSFUL\n");
     ProTKPrintf("----------------------------------------------\n");
+
+    status = ProWindowCurrentGet(&window_id);
+    if (status == PRO_TK_NO_ERROR)
+    {
+        write_log("ProWindowCurrentGet: OK (Creo API access working)");
+    }
 
     status = ProMdlCurrentGet(&current_model);
 
@@ -86,52 +87,17 @@ static int action_test_connection(uiCmdCmdId command,
         write_log(log_msg);
 
         ProTKPrintf("  Active model: %s\n", name_str);
-
-        ProMessageDisplay(L"msg_machintell.txt", "TEST_WITH_MODEL", name_str);
+        ProMessageDisplay(MSGFIL, "TEST_WITH_MODEL %0s", name_str);
     }
     else
     {
         write_log("No active model open (this is OK for basic verification)");
         ProTKPrintf("  No model currently open.\n");
-
-        ProMessageDisplay(L"msg_machintell.txt", "TEST_NO_MODEL");
+        ProMessageDisplay(MSGFIL, "TEST_NO_MODEL");
     }
 
-    ProTKPrintf("  Log file: %s\n", log_path);
-    ProTKPrintf("----------------------------------------------\n");
-
-    /* Show a popup info dialog for clear visual confirmation */
-    {
-        ProUIMessageButton *buttons = NULL;
-        ProUIMessageButton user_choice;
-
-        ProArrayAlloc(1, sizeof(ProUIMessageButton), 1, (ProArray*)&buttons);
-        buttons[0] = PRO_UI_MESSAGE_OK;
-
-        if (name_str[0] != '\0')
-        {
-            ProTKSprintf(w_msg, L"Creo Toolkit Connection SUCCESSFUL!\n\n"
-                                 L"Active Model: %s\n\n"
-                                 L"Log written to: machintell_test_log.txt\n\n"
-                                 L"[MachIntell ]", name_str);
-        }
-        else
-        {
-            ProTKSprintf(w_msg, L"Creo Toolkit Connection SUCCESSFUL!\n\n"
-                                 L"No model currently open.\n\n"
-                                 L"Log written to: machintell_test_log.txt\n\n"
-                                 L"[MachIntell ]");
-        }
-
-        ProUIMessageDialogDisplay(
-            PROUIMESSAGE_INFO,
-            L"MachIntell - Toolkit Test",
-            w_msg,
-            buttons, PRO_UI_MESSAGE_OK,
-            &user_choice);
-
-        ProArrayFree((ProArray*)&buttons);
-    }
+    ProTKPrintf("  Log file: machintell_test_log.txt\n");
+    ProTKPrintf("----------------------------------------------\n\n");
 
     write_log("Test completed successfully.");
     write_log("---");
@@ -162,7 +128,7 @@ int user_initialize(
     status = ProCmdActionAdd(
         "MachIntell_Test",
         (uiCmdCmdActFn)action_test_connection,
-        uiProeImmediate,
+        uiProe2ndImmediate,
         AccessDefault,
         PRO_B_TRUE,
         PRO_B_TRUE,
@@ -171,31 +137,19 @@ int user_initialize(
     if (status != PRO_TK_NO_ERROR)
     {
         write_log("ERROR: ProCmdActionAdd failed");
-        swprintf(errbuf, 80, L"MachIntell: Failed to register command");
-        return -1;
-    }
-
-    status = ProCmdDesignate(
-        cmd_id,
-        "MachIntell Test",
-        "Click to test Creo Toolkit connection",
-        "MachIntell Test - Verify Toolkit Integration",
-        NULL);
-
-    if (status != PRO_TK_NO_ERROR)
-    {
-        write_log("NOTE: ProCmdDesignate returned non-zero (cosmetic only)");
+        ProStringToWstring(errbuf, "MachIntell: Failed to register command");
+        return (-1);
     }
 
     status = ProMenubarmenuPushbuttonAdd(
         "Utilities",
-        "MachIntell_Test_Btn",
+        "MachIntell_Test",
         "MachIntell_Test",
         "MachIntell_Test_Help",
         NULL,
         PRO_B_TRUE,
         cmd_id,
-        L"msg_machintell.txt");
+        MSGFIL);
 
     if (status == PRO_TK_NO_ERROR)
     {
@@ -204,16 +158,15 @@ int user_initialize(
     else
     {
         write_log("NOTE: Utilities menu item not added (ribbon-only mode).");
-        write_log("      Use ribbon search to find 'MachIntell Test'");
     }
 
     write_log("Initialization complete.");
     write_log("========================================");
 
     ProTKPrintf("\n** MachIntell Test App loaded successfully **\n");
-    ProTKPrintf("** Find 'MachIntell Test' in Utilities menu or ribbon search **\n\n");
+    ProTKPrintf("** Find 'MachIntell Test' in Utilities menu **\n\n");
 
-    return 0;
+    return (0);
 }
 
 /*--------------------------------------------------------------------
