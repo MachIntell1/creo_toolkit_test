@@ -1,6 +1,6 @@
 ============================================================
  MachIntell J-Link Test - Quick Setup Guide
- MachIntell Technologies Pvt. Ltd.
+ MachIntell Solutions Pvt. Ltd.
 ============================================================
 
 IMPORTANT: J-Link does NOT require the TOOLKIT license!
