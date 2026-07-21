@@ -1,0 +1,12 @@
+MACHINTELL_TEST_CMD
+MachIntell J-Link Test
+
+MACHINTELL_TEST_LABEL
+MachIntell J-Link Test
+
+MACHINTELL_TEST_HELP
+Verify J-Link integration - MachIntell Technologies
+
+STARTUP_MSG
+MachIntell J-Link Test App loaded successfully.
+

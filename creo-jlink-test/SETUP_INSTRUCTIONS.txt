@@ -1,0 +1,108 @@
+============================================================
+ MachIntell J-Link Test - Quick Setup Guide
+ MachIntell Technologies Pvt. Ltd.
+============================================================
+
+IMPORTANT: J-Link does NOT require the TOOLKIT license!
+This approach should work without any unlocking step.
+
+============================================================
+ STEP 1: Verify J-Link is installed
+============================================================
+
+Check if this folder exists on your Creo machine:
+  C:\xcad\PTC\Creo11.0\Creo_11.0.4.0\Common Files\text\java\
+
+  OR search: dir /s /b "C:\xcad\PTC\*pfc.jar"
+
+If pfc.jar exists, J-Link is installed. Note down its full path.
+
+============================================================
+ STEP 2: Extract files
+============================================================
+
+Extract this zip to: C:\MachIntell\creo-jlink-test\
+
+============================================================
+ STEP 3: Compile the Java code
+============================================================
+
+Open Command Prompt and run:
+
+  cd C:\MachIntell\creo-jlink-test
+
+  mkdir classes
+
+  javac -cp "C:\xcad\PTC\Creo11.0\Creo_11.0.4.0\Common Files\text\java\pfc.jar" -d classes src\com\machintell\creotest\MachIntellTest.java
+
+  (Replace the pfc.jar path with YOUR actual path from Step 1)
+
+If "javac" is not found, use Creo's bundled Java:
+  "C:\xcad\PTC\Creo11.0\Creo_11.0.4.0\Parametric\bin\jre\bin\javac.exe"
+
+Or install Java JDK from: https://adoptium.net/
+
+============================================================
+ STEP 4: Edit the .dat file
+============================================================
+
+Open machintell_jlink_test.dat in Notepad.
+Update these two lines with YOUR paths:
+
+  JAVA_APP_CLASSPATH  C:\MachIntell\creo-jlink-test\classes;C:\xcad\PTC\Creo11.0\Creo_11.0.4.0\Common Files\text\java\pfc.jar
+  TEXT_DIR            C:\MachIntell\creo-jlink-test\text\
+
+IMPORTANT: JAVA_APP_CLASSPATH must include BOTH:
+  - Path to your "classes" folder (with compiled .class files)
+  - Path to pfc.jar (from Creo installation)
+  Separated by semicolon (;)
+
+============================================================
+ STEP 5: Register in Creo
+============================================================
+
+1. Start Creo 11
+2. Utilities > Auxiliary Applications
+3. Click Register > browse to machintell_jlink_test.dat
+4. Click Start
+5. Status should show "Running"
+
+============================================================
+ STEP 6: Test
+============================================================
+
+1. Look for "MachIntell J-Link Test" in Utilities menu
+   (or search "MachIntell" in ribbon search box)
+2. Click it
+3. You should see a popup: "J-Link Connection SUCCESSFUL!"
+4. Check for log file: machintell_jlink_log.txt
+
+============================================================
+ AFTER TESTING - Please share:
+============================================================
+
+- The machintell_jlink_log.txt file
+- Screenshot of the popup
+- Any error messages if something didn't work
+
+============================================================
+ TROUBLESHOOTING:
+============================================================
+
+"Class not found" error:
+  -> JAVA_APP_CLASSPATH in .dat is wrong
+  -> Must include BOTH classes folder AND pfc.jar
+
+"Application failed to start":
+  -> Check if pfc.jar path in JAVA_APP_CLASSPATH is correct
+  -> Try using absolute paths everywhere
+
+"javac not recognized":
+  -> Install JDK or find Creo's javac at:
+     <Creo_Path>\Parametric\bin\jre\bin\javac.exe
+
+J-Link not available:
+  -> Re-run Creo installer
+  -> Select "API Toolkits" > "Creo Object TOOLKIT Java"
+
+============================================================

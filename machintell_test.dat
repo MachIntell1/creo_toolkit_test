@@ -2,7 +2,7 @@ NAME                 machintell_test
 STARTUP              dll
 ALLOW_STOP           TRUE
 DELAY_START          FALSE
-EXEC_FILE            C:\MachIntell\creo-toolkit-test\bin\machintell_test.dll
-TEXT_DIR             C:\MachIntell\creo-toolkit-test\text\
+EXEC_FILE            C:\Users\ipcnbs\Downloads\MachIntell_CreoToolkit_Test\bin\machintell_test.dll
+TEXT_DIR             C:\Users\ipcnbs\Downloads\MachIntell_CreoToolkit_Test\text\
 REVISION             11.0
 END

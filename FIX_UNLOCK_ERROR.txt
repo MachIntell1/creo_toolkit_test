@@ -1,0 +1,92 @@
+============================================================
+ FIX: "Application was not unlocked" Error
+ MachIntell 
+============================================================
+
+This error means Creo doesn't have the TOOLKIT development
+license active in your session. Since you have Creo Toolkit
+installed, you just need to enable it.
+
+============================================================
+ OPTION 1: Enable TOOLKIT License (Recommended - One Time)
+============================================================
+
+Method A - Using config.pro:
+
+1. Open Creo 11
+2. Go to: File > Options > Configuration Editor
+3. Search for: toolkit_registry_file
+4. If not found, click "Add" and add this option:
+   
+   Option: PROTKDEV
+   Value:  YES
+
+   OR simply search for and set:
+   Option: toolkit_registry_file
+   Value:  C:\Users\ipcnbs\Downloads\MachIntell_CreoToolkit_Test\machintell_test.dat
+
+5. Click OK/Apply
+6. Save config.pro when prompted
+7. Restart Creo
+
+Method B - Add TOOLKIT to startup license:
+
+1. Close Creo
+2. Go to your Creo install folder:
+   C:\Program Files\PTC\Creo 11.0.0.0\Parametric\bin\
+3. Run: ptcsetup.bat (or Creo setup)
+4. On License Configuration page:
+   - Select your Creo license
+   - Click "Edit"
+   - Move "Pro/TOOLKIT" to "Startup Extensions"
+   - Click OK
+5. Click Configure to save
+6. Start Creo again
+7. Now try registering the application
+
+Method C - Check if license is already there:
+
+1. In Creo, go to: File > Help > System Information
+2. Look for "TOOLKIT" in Configured Option Modules
+3. If it's listed, the license IS available - try Method D
+
+============================================================
+ OPTION 2: Unlock via Creo UI (Creo 11 feature)
+============================================================
+
+1. Open Creo 11
+2. Go to: Home > Utilities > Unlock Auxiliary Applications
+   OR: Tools > Unlock Auxiliary Applications
+3. In Application Type: select "C/C++"
+4. In Application Path: browse to:
+   C:\Users\ipcnbs\Downloads\MachIntell_CreoToolkit_Test\bin\machintell_test.dll
+5. Click Unlock
+6. Close the dialog
+7. Now register the .dat file as before and Start
+
+============================================================
+ OPTION 3: Unlock via Command Line
+============================================================
+
+1. Open Command Prompt as Administrator
+2. Run:
+
+   "C:\Program Files\PTC\Creo 11.0.0.0\Parametric\bin\protk_unlock.bat" "C:\Users\ipcnbs\Downloads\MachIntell_CreoToolkit_Test\bin\machintell_test.dll"
+
+   (Adjust the Creo path if different on your machine)
+
+3. If successful, it will say "Application unlocked"
+4. Now register in Creo as before
+
+============================================================
+ NOTE: 
+============================================================
+The Pro/TOOLKIT license must be available on your license
+server for any of these methods to work. Since you confirmed
+Creo Toolkit is included in your installation, it should be
+available.
+
+If you see a "license not available" error, please check
+with your IT/PLM team that the TOOLKIT license is not in use
+by another user.
+============================================================

@@ -1,0 +1,10 @@
+NAME                machintell_jlink_test
+STARTUP             java
+JAVA_APP_CLASS      com.machintell.creotest.MachIntellTest
+JAVA_APP_START      start
+JAVA_APP_STOP       stop
+JAVA_APP_CLASSPATH  .\classes
+ALLOW_STOP          TRUE
+DELAY_START         FALSE
+TEXT_DIR            .\text\
+END
