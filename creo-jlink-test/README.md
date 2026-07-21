@@ -142,5 +142,5 @@ creo-jlink-test/
 
 ## Contact
 
-**MachIntell Technologies Pvt. Ltd.**  
+**MachIntell Solutions Pvt. Ltd.**  
 For any issues, contact us — we can assist via remote session.
