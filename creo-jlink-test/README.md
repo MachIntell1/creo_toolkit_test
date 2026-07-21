@@ -1,6 +1,6 @@
 # MachIntell J-Link Test Application
 
-**Company:** MachIntell Technologies Pvt. Ltd.  
+**Company:** MachIntell Solutions Pvt. Ltd.  
 **Purpose:** Validate that J-Link (Java) integration works in your Creo 11 environment.
 
 ---
